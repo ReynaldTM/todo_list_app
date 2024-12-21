@@ -1,4 +1,3 @@
-import tkinter
 from tkinter import *
 
 # initialiasing tkinter
@@ -35,6 +34,11 @@ def addTask():
     # clears Entry() box
     task_entry.delete(0, END)
 
+    max_length = 25
+
+    if len(task) > max_length:
+        task = task[:max_length] + "..."
+
     if task and task not in task_list:
         # opens tasklist in append
         with open("tasklist.txt", "a") as taskfile:
@@ -49,6 +53,7 @@ def addTask():
         # inserts/appears in listbox of todo list
         listbox.insert(END, task)
 
+
 def deleteTask():
     global task_list
     # ANCHOR is a constant that automatically updates the constant using
@@ -58,12 +63,12 @@ def deleteTask():
         task_list.remove(task)
         with open("tasklist.txt", "w") as taskfile:
             for task in task_list:
-                taskfile.write(task+"\n")
+                taskfile.write(task + "\n")
 
         listbox.delete(ANCHOR)
 
 
-# icon
+# app icon
 image_icon = PhotoImage(file="icons/clipboard_thumbnail.png")
 root.iconphoto(False, image_icon)
 
@@ -93,7 +98,7 @@ task_entry.place(x=10, y=7)
 # focus keyboard entries on Entry; allowing user to type or interact with directly
 task_entry.focus()
 
-# add button and comnmand
+# add button and command
 add_button = Button(frame, text="ADD", font="arial 20 bold", width=6, bg="#32405b", fg="#fff", bd=0, command=addTask)
 add_button.place(x=300, y=0)
 
@@ -106,7 +111,7 @@ frame1 = Frame(root, bd=3, width=700, height=280, bg="#32405b")
 frame1.pack(pady=(160, 0))
 
 # item in listbox
-listbox = Listbox(frame1, font="arial 20", width=40, height=16, bg="#32405b", fg="white",
+listbox = Listbox(frame1, font="arial 16", width=40, height=16, bg="#32405b", fg="white",
                   cursor="hand2", selectbackground="#5a95ff")
 listbox.pack(side=LEFT, fill=BOTH, padx=2)
 
